@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JSON Parsing</title>
+</head>
+<body>
+
+</body>
+<script>
+	//문자 배열 - 문자열
+	var data = '["DataType", "Operator", "ControlStatement"]';
+	//JSON 형식의 문자열을 자바스크립트 데이터로 변환 
+	var imsi = JSON.parse(data);
+	for(temp in imsi){
+		document.writeln(imsi[temp] + "<br/>");
+	}
+	
+	//객체의 문자열 형식 표현 
+	var obj = '{"name" : "박문석", "score":"99"}';
+	imsi = JSON.parse(obj);
+	document.writeln(imsi.name + "<br/>");
+</script>
+</html>

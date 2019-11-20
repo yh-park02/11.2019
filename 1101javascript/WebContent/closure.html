@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>closure</title>
+</head>
+<body>
+
+</body>
+<script> 
+	var outer = function(){
+		var i = 0; 
+		 inner = function(){
+			document.writeln("i:"+i+"<br/>");	
+			i = i + 1;
+		}
+		return inner;
+	}
+	
+	f = outer();
+	f();
+	f();
+	f();
+</script>
+</html>

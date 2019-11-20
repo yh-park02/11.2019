@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>자바스크립트 함수는 일급 객체
+		-함수를 하나의 데이터로 취급</title>
+</head>
+<body>
+
+</body>
+<script>
+	//함수가 일급 객체라서 변수에 대입이 가능 
+	//하나의 변수에 여러 개의 함수의 내용을 대입할 수 있다. 
+	//이러한 프로그래밍 방식을 함수형 프로그래밍 방식이라고 한다.  
+	var func = function(){
+		document.writeln("함수는 일급 객체"+"<br/>");	
+	};
+	func();
+	
+	func = function(){
+		document.writeln("함수의 내용 변경"+"<br/>");	
+	};
+	func();
+	
+	//함수 안에 함수 생성이 가능하다.
+	//자바스크립트는 함수를 리턴할 수 있다.
+	function outer(){
+		function inner(){
+			document.writeln("내부함수"+"<br/>");	
+		}
+		return inner; //outer의 결과
+	}
+	//다른 함수의 내부 함수를 호출 - 에러 
+	//inner();
+	
+	//outer(); - inner
+	
+	f = outer(); //outer 함수를 호출하고 그 결과를 f에 저장, f는 inner
+	f(); 
+	
+</script>
+</html>

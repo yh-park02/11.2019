@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>문자열 함수</title>
+</head>
+<body>
+
+</body>
+<script>
+	var filename = "test.png";
+	//확장자만 추출해서 출력하기 
+	//있는 기호인데 안되면 \\두번 붙여준다. 
+	//\를 하고 싶을 땐 \\\\ 4번 붙여줘야한다.
+	
+	var ar = filename.split("\\."); 
+	for(imsi in ar){
+		document.writeln(ar[imsi] + "<br/>");
+	}
+	
+</script>
+</html>

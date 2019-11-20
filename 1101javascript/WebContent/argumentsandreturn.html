@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>arguments와 return</title>
+</head>
+<body>
+
+</body>
+<script>
+	//매개변수가 없는 함수인데 매개변수를 대입해서 사용 
+	function noarg(){
+		//arguments는 자바스크립트 함수가 내장하고 있는 매개변수 
+		for(idx in arguments){
+			document.writeln(arguments[idx]+"<br/>")
+		}
+	}
+	noarg("Hello")
+	noarg("Hello", "JavaScript")
+	
+	//2개의 매개변수 합을 구한 후 결과를 리턴하는 함수 
+	function add(n1, n2){
+		return n1+n2;
+	}
+	
+	result = add(100, 300);
+	//콘솔에 결과를 출력 - 크롬의 경우는 검사 창에서 확인 
+	console.log(result);
+</script>
+</html>

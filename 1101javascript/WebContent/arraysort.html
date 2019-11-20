@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열 데이터 정렬</title>
+</head>
+<body>
+
+</body>
+<script>
+	var databases = [
+	"Oracle", "MySQL", "MongoDB", "SQLite", "Firebase"];
+	//데이터 정렬 전 출력 
+	document.writeln(databases.join(" - ")+"<br/>");
+	//데이터 정렬 
+	databases.sort();
+	document.writeln(databases.join(" - ")+"<br/>");
+	
+	document.writeln("<br/>");
+	
+	//숫자 데이터의 정렬 - 문자로 취급해서 정렬 
+	var scores = [98, 76, 123, 87, 65, 78];
+	//데이터 정렬 전 출력 
+	document.writeln(scores.join(" - ")+"<br/>");
+	//데이터 정렬 
+	scores.sort();
+	//123이 가장 큰 수인데도 불구하고 가장 먼저 출력
+	document.writeln(scores.join(" - ")+"<br/>");
+	
+	//정렬에 사용할 함수를 대입해서 정렬
+	//right-left를 하게 되면 내림차순 정렬 
+	scores.sort(function(left, right){
+		return left-right;
+	});
+	document.writeln(scores.join(" - ")+"<br/>");
+	
+	document.writeln("<br/>");
+	
+	//동일한 모양의 객체를 여러개 생성하고자 할 때는 생성자를 이용
+	function Data(name, score, address){
+		this.name = name;
+		this.score = score;
+		this.address = address;
+		this.toString = function(){
+			return"["+this.name+": "+this.score+"]";
+		}
+	}
+	
+	var ar = [new Data("전소미", 98, "서울"),
+			  new Data("이은영", 87, "제주"),
+			  new Data("김소은", 88, "여수"),
+			  new Data("박수진", 69, "천안"),
+			  new Data("차은우", 77, "전주")]
+	document.writeln(ar+"<br/>");
+	
+	//별도의 비교 메소드가 없으면 toString의 결과를 가지고 정렬
+	ar.sort();
+	document.writeln(ar+"<br/>");
+	
+	//score를 이용해서 오름차순 정렬하기 
+	ar.sort(function(left,right){
+		return left.score - right.score;
+	});
+	document.writeln(ar+"<br/>");
+	
+	//name의 내림차순 정렬
+	//자바스크립트는 문자열의 크기를 부등호로 비교가 가능하다.
+	//동일성 여부를 판단할 때 == 는 값만 비교한다.
+	//자료형을 확인하지 않기 때문에 10 == "10" 이면 true
+	//===는 자료형도 확인하기 때문에 10 === "10" 이면 false 이다.
+	ar.sort(function(left,right){
+		if(left.name < right.name)
+			return 1;
+		else if(left.name === right.name)
+			return 0;
+		else
+			return -1;
+	});
+	document.writeln(ar+"<br/>");
+	
+	//ar 배열에 있는 모든 요소의 score에 1을 더하기 
+	ar.forEach(function(element, index, array){
+		element.score = element.score+1;
+	})
+	document.writeln(ar+"<br/>");
+	
+	document.writeln("<br/>");
+	
+	//ar 배열에서 name만 추출해서 새로운 배열 만들기 - map 
+	var newar = ar.map(function(element, index, array){
+		return element.name;
+	});
+	document.writeln(newar+"<br/>");
+	
+	//ar 배열에 조건을 적용해서 조건에 맞는 데이터만 추출해서 
+	//배열 만들기 - filter : boolean을 리턴
+	var newar = ar.filter(function(element, index, array){
+		return element.score >= 90; //score가 90이상 
+	});
+	document.writeln(newar+"<br/>");
+	
+</script>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>배열의 생성과 접근</title>
+</head>
+<body>
+
+</body>
+<script>
+	var ar = ["Java", "JavaScript", "Swift"];
+	//배열의 데이터 개수 확인 
+	document.writeln("개수: " + ar.length + "<br/>");
+	document.writeln("<br/>");
+	
+	//배열의 전체 데이터 순회 
+	for(idx =0; idx<ar.length; idx=idx+1){
+		document.writeln(ar[idx] + "<br/>");
+	}
+	document.writeln("<br/>");
+	
+	for(idx in ar){
+		document.writeln(ar[idx] + "<br/>");
+	}
+	
+	document.writeln("<br/>");
+	
+	//배열에 데이터 추가 가능
+	ar.push("Kotlin");
+	ar.unshift("Python");
+	//데이터를 전부 출력 
+	document.writeln(ar.join("-") + "<br/>");
+	//데이터를 반대로 배치
+	ar.reverse();
+	document.writeln(ar.join("-") + "<br/>");
+	
+	document.writeln("<br/>");
+	
+	//데이터의 위치 찾기 
+	document.writeln(ar.indexOf("Kotlin") + "<br/>");
+	//데이터가 존재하지 않을 때는 음수를 리턴 
+	document.writeln(ar.indexOf("C") + "<br/>");
+
+	
+</script>
+</html>

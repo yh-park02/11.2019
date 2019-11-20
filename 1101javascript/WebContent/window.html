@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>window 객체</title>
+</head>
+<body>
+	<input type="button" value="구글" id="googlebtn" /><br/>
+	<input type="button" value="팝업" id="popup" /><br/>
+	<img src ="images/1.png" width="220" height="200" id="A" />
+
+</body>
+<script> 
+	//img 태그에 적용할 이미지 파일명을 배열로 작성 
+	var images = ["1.png", "2.png", "3.png", "4.png", "5.png", "6.png"];
+	
+	var idx =0;
+	//타이머 생성 - 사진을 2초마다 바꾸기 
+	var timer = setInterval(function(){
+		//idx = idx + 1;
+		idx = Math.round(Math.random() * 1000) //랜덤
+		document.getElementById("A").src=
+			"images/"+images[idx % images.length];
+	}, 2000); //2초마다 내용을 수행
+
+
+	document.getElementById("googlebtn")
+	addEventListener("click", function(){
+		//url이동
+		window.location = "https://www.google.co.kr";
+	});
+	
+	//팝업창 
+	document.getElementById("popup")
+	addEventListener("click", function(){
+		//url이동
+		window.open('https://www.naver.com', '네이버', 
+				'width=600, height=400');
+	});
+</script>
+</html>

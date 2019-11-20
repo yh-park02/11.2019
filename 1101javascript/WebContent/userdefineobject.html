@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자 정의 객체</title>
+</head>
+<body>
+
+</body>
+<script>
+	//사용자 정의 객체 생성 
+	var person = {
+			name:"전지현", email:"jjh@naver.com",
+			display:function(){
+				document.writeln("이름:" + this.name +
+				"이메일:" + this.email + "<br/>");
+			}};
+	
+	//속성 사용 
+	document.writeln("이름: "+ person.name +"<br/>");
+	//대괄호 안에 속성을 기재할 때는 문자열 형태로 설정, ""필수
+	document.writeln("이메일: "+ person["email"] + "<br/>");
+	//메소드 호출
+	person.display();
+	
+	//속성을 추가
+	person.mobile = "01012345678"
+	//속성을 제거
+	delete(person.email);
+	//속성을 업데이트
+	person.name = "아이린";
+	
+	
+	//모든 속성을 확인 -for~in은 속성을 문자열로 리턴 
+	for(attr in person){
+		//person.name : person."name"으로 되서 undefined
+		//document.writeln(attr + ":" +person.attr + "<br/>");
+		
+		document.writeln(attr + ":" + person[attr] + "<br/>");
+	
+	}
+	//어떤 속성이 존재하는지 판별 - in 연산자 이용 
+	//person 객체에 display 속성이 있으면 dispaly(를 호출하고 
+	//없으면 println()을 호출 
+	//자바스크립트는 브라우저가 해석하기 때문에 
+	//브라우저 별로 객체의 내용이 다를 수 있다.
+	//개발자는 유저들이 어떤 브라우저에서 콘텐츠를 사용할지 
+	//예측할 수 없다. 
+	//모든 브라우저에서 유저들이 콘텐츠를 사용할 수 있도록 해주어야 한다.
+	//이것을 크로스 브라우징이라고 한다. 
+	//이런 형태로 속성이 있으면 어떤 속성을 호출하고 없으면 다른 속성이나
+	//다른 객체를 이용하는 구문을 만들어야 한다. 
+	//이것을 편리하게 구현하도록 해주는 라이브러리 중 하나가 jQuery이다.
+	
+	if(display in person){
+		person.dispaly();
+	}else{
+		person.println();
+	}
+	
+</script>
+</html>
