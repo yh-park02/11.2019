@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>정규식 연습</title>
+<script>
+/*
+	//load 이벤트는 메모리에 적재가 전부 되고 난 후 발생하는 이벤트
+	//window.onload이면 현재 만든 모든 태그가 메모리에 적재된 후 수행
+	window.onload = function(){
+		var str = 'JavaScript RegExp';
+		//str의 Script라는 문자열이 포함되어 있는지 확인
+		
+		//정규식 객체 생성 
+		//var regExp = new RegExp("Script");
+		var regExp = /Script/
+		//존재 여부 확인
+		if(regExp.test(str)){
+			alert("Scrip가 존재");
+		}else{
+			alert("Scrip가 존재하지 않음");
+		}
+		//문자열에서 치환 
+		str = "Hello Java JavaScript 1 2 3";
+		//Hello를 Hi로 변경 
+		//i라는 한정자를 사용하면 대소문자 구분없이 작업을 한다. 
+		var result = str.replace(/hello/i, 'Hi');
+		document.writeln("result:" + result + "<br/>");
+		//숫자를 제거 
+		result = result.replace(/[0-9]/,'');
+		document.writeln("result:" + result + "<br/>");
+		
+		//prompt를 이용해서 한 줄의 텍스트를 입력받은 후 
+		//입력 받은 텍스트가 영문과 숫자로만 구성되어 있는지 확인 
+		//영문과 숫자 1개라도 포함되어 있는 경우 
+		regExp = /^([a-zA-Z0-9]){3}/g;
+		string = prompt("한줄의 문자열을 입력하세요");
+		if(regExp.test(string)){
+			alert("1");
+		}else{
+			alert("0");
+		}
+	};
+*/
+</script>
+
+</head>
+<body>
+
+	<form action ="main.jsp">
+		<label for = 'tel'>전화번호</label>
+		<!-- input 요소에 pattern을 이용해서 정규식을 작성하면
+		스크립트 코드 없이도 유효성 검사가 가능한데 
+		원하는 메시지를 출력할 수 없어서 자바스크립트로
+		직접 유효성 검사 코드를 만들기도 한다. -->
+		<input type="text" id='tel'
+		pattern ="(010)-\d{3,4}-\d{4}" />
+		<input type="submit" id='전송'/>	
+	</form>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

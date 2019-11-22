@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>예외처리</title>
+<script>
+	//예외처리의 목적
+	//1. 프로그램의 실행을 중단하지 않기 위해
+	//2. 예외의 내용을 확인하기 위해서 
+	try{
+		var ar = nre Array(4300000000);
+	}catch(exception){
+		document.writeln("name:" +
+			exception.name + "<br/>");
+		document.writeln("decription:" +
+			exception.decription + "<br/>"); 
+		document.writeln("message:" +
+			exception.message + "<br/>");
+	}
+	alert('무조건 수행');
+
+</script>
+</head>
+<body>
+
+</body>
+</html>
