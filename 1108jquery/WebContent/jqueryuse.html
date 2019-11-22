@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jquery 사용</title>
+<!-- 
+<script src=
+	"https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js">	
+</script>
+-->
+<script src = './js/jquery.js'></script>
+<script>
+	$(function(){
+		//alert('jquery 링크 설정');
+		$('div').css('background-color', 'yellow');
+		$('.area').css('color', 'red');
+		$('#one').css('border', '1px solid blue');
+	});
+</script>
+</head>
+<body>
+	<div>div 태그</div>
+	<div class='area'>클래스가 있는 영역</div>
+	<span class='area'>클래스가 있는 영역</span>
+	<div id='one'>div 태그</div>
+</body>
+</html>

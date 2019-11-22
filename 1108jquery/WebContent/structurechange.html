@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>jquery 문서 구조 변경</title>
+<style>
+	img{
+		width:100px;
+		height:100px;
+	}
+</style>
+<script src='./js/jquery.js'></script>
+<script>
+	$(function(){
+		setInterval(function(){
+			$('img').first().appendTo('body');
+			//$('img').attr('src', '이미지경로')
+		},3000);
+	});
+</script>
+</head>
+<body>
+	<img src='images/dada.png'/>
+	<img src='images/축구공1.jpeg'/>
+		<img src='images/축구공.jpg'/>
+</body>
+</html>
