@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Web SQL</title>
+</head>
+<body>
+ 	<fieldset>
+ 		<legend>데이터 입력</legend>
+ 		<!-- id는 자바스크립트에서 구별해서 사용하기 위해서이고
+ 			class는 css에서 동일한 디자인을 적용하기 위해서이고 
+ 			name은 서버에서 데이터를 사용하시 위해서이다. -->
+ 		이름<input type='text' required='required'
+ 		id='name' maxlength='20' />
+ 		나이<input type='text' required='required'
+ 		id='age' maxlength='3' />
+ 		주소<input type='text' required='required'
+ 		id='address' maxlength='20' />
+ 		<input type='button' value='저장' id='savebtn'/>
+ 	</fieldset>
+ 	
+ 	<fieldset>
+ 		<legend>데이터 출력</legend>
+ 		<select id='list' size='10'></select>
+ 		<input type='button' id='deletebtn'
+ 		value='삭제' />
+ 	</fieldset>
+</body>
+<script>
+	//데이터베이스 저장 변수
+	var db;
+	//입력 객체 찾아오기 
+	var nameInput = document.getElementById('name');
+	var ageInput = document.getElementById('age');
+	var addressInput = document.getElementById('address');
+	//저장 버튼 
+	var savebtn = document.getElementById('savebtn');
+	//삭제 버튼
+	var deletebtn = document.getElementById('deletebtn');
+	
+	//출력 영역 
+	var list = document.getElementById('list');
+	
+	//데이터베이스에서 데이터를 읽어서 list에 출력하는 메소드 
+	var showData = function(){
+		db.transaction(
+			function(tx){
+				tx.executeSql(
+					'select * from addressbook'
+					,[ ],
+					function(tx, rs){
+						//select 구문 결과 가져오기 
+						var rows = rs.rows;
+						//list의 모든 내용 삭제
+						list.innerHTML = '';
+						for(idx = 0; idx < rows.length; idx=idx+1){
+							//하나의 행 데이터 가져옴 
+							var row = rows.item(idx);
+							//하나의 Option을 만들어서 
+							//select의 마지막에 추가하기 
+							//앞의 데이터는 보여지는 텍스트이고 
+							//뒤의 데이터는 서버나 자바스크립트에서 
+							//사용할 수 있는 값이다.
+							var option = new Option(
+							row.name + ':' + row.age + 
+							':' + row.assress, row.name);
+							//select에 마지막 요소로 추가 
+							list.options[list.options.length] = option;
+						}
+					}
+				);
+			}
+		);	
+	};
+	
+	//화면이 출력되기 직전에 수행
+	window.addEventListener('load', function(){
+		//데이터베이스 열기 
+		//이름은 AddressBook 버전은 1, 크기는 1024*1024:1MB
+		db = openDatabase("addressBook", "1",
+						"주소록", 1024*1024);
+		//매번 테이블 삭제하기
+		/*
+		db.transaction(function(tx){
+			tx.executeSql(
+					'drop table addressbook')});
+		*/
+		
+		//테이블 생성
+		db.transaction(function(tx){
+			tx.executeSql(
+				'create table if not exists addressbook('
+				+'name text, age integer, address text)');
+		});
+		//데이터 저장 
+		showData();
+	});
+	
+	//저장 버튼을 눌렀을 때 
+	savebtn.addEventListener('click', function(e){
+		//console.log('클릭'); 
+		
+		//nameInput, ageInput, addressInput에 입력한 값 찾아오기 
+		var name = nameInput.value;
+		var age = ageInput.value;
+		var address = addressInput.value;
+		
+		//console.log(name);
+		//console.log(age);
+		//console.log(address);
+		
+		//데이터베이스에 삽입하는 구문 실행
+		db.transaction(function(tx){
+			//sql 실행
+			tx.executeSql(
+				"insert into addressbook(name, age, address) values(?,?,?)",
+				[name, age, address],
+				function(tx, rs){
+					alert('데이터 추가 성공');
+					nameInput.value = '';
+					ageInput.value = '';
+					addressInput.value = '';
+					showData();
+				});
+		});
+	});
+	//삭제 버튼을 클릭했을 때 
+	deletebtn.addEventListener('click', function(e){
+		//console.log('삭제버튼 클릭'); -이벤트가 제대로 발생하는지 확인 
+		
+		//select에서 선택한 항목 찾기(인덱스 -> 값)
+		//예외를 방지하기 위해서 선택이 되었는지 확인 
+		if(list.selectedIndex < 0){
+			alert('선택을 하고 삭제를 누르세요!');
+			return;
+		};
+		//select에서 선택한 데이터의 값을 가져오기 
+		var name = list.options[list.selectedIndex].value;
+		//alert(name);
+		
+		db.transaction(function(tx){
+			tx.executeSql('delete from addressbook where name =?',
+			[name], function(tx, rs){
+				alert('삭제 성공');
+				showData();
+			});
+		});
+	});
+</script>
+</html>
