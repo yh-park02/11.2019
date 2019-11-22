@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>다양한 이벤트 처리</title>
+</head>
+<style>
+#menu{
+	background-color : black;
+	color:white;
+}
+/*
+#menu:hover{
+	color:gray;
+}
+*/
+
+</style>
+<body>
+	<h3 id="mousepoint">마우스 클릭 이벤트</h3>
+	
+	키보드 이벤트:<input type='text' size='20' id="msg" /><br/>
+	
+	
+	<div id="menu">Apple</div>
+</body>
+<script>
+	//마우스 영역 안에 들어온 경우 처리 
+	document.getElementById('menu')
+	.addEventListener('mouseover', function(e){
+		this.style.color = 'green';
+		alert("영역 안에 들어옴");
+	});
+	
+	
+	//키를 누를 때 이벤트 처리 
+	document.getElementById('msg')
+	.addEventListener('keydown', function(e){
+		var event = e || window.event;
+		//키보드 값 가져오기
+		var keyCode = ('which' in event)?
+				event.which:event.keyCode;
+		//숫자가 아닌 경우
+		if(keyCode < 48 || keyCode > 57){
+			//제공되는 이벤트 처리를 수행하지 않음
+			//키보드 이벤트는 누른 키를 출력하는 것이 기본 기능이다.
+			event.preventDefault();
+		}
+	});	
+	
+	
+	document.getElementById('mousepoint')
+	.addEventListener('click', function(e){
+		var event = e || window.event;
+		var x = event.screenX;
+		var y = event.screenY;
+		alert("x:" + x + "y:" + y);
+	});
+</script>
+</html>

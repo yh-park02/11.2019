@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>문서 내의 객체 선택</title>
+</head>
+<body>
+	<form method="post" id="myform">
+	
+	<label for="id">아이디</label>
+	<input type="text" id="id" name="id"/>
+	<span id="idspan"></span><br/>
+	
+	<label for="pw">비밀번호</label>
+	<input type="password" id="pw" name="pw"/>
+	<span id="pwspan"></span><br/>
+	
+	<label for="pw1">비밀번호확인</label>
+	<input type="password" id="pw1" name="pw1"/>
+	
+	<input type="submit" value="회원가입"/>
+	</form>
+</body>
+
+<script>
+	//form 객체 찾아오기 
+	myform = document.getElementById("myform");
+	//id 객체 찾아오기 
+	var ids = document.getElementById("id");
+	//pw 객체 찾아오기
+	var pw = document.getElementById("pw");
+	//pw1 객체 찾아오기
+	var pw1 = document.getElementById("pw1");
+	
+	//form 객체에서 submit 이벤트가 발생할 때 
+	myform.addEventListener("submit", function(e){
+		//id에 입력한 값 찾아오기
+		//입력을 하지 않으면 null이 아니고 ' '
+		var inputid = ids.value;
+		if(inputid.trim().length <= 0){
+			//alert("아이디는 필수 입력입니다.")
+			document.getElementById("idspan").innerHTML = 'id는 필수 입력입니다.';
+			document.getElementById("idspan").style.color = 'red';
+			ids.focus();
+			e.preventDefault();
+		}
+		//비밀번호화 비밀번호 확인의 값을 가져오기
+		var inputpw = pw.value.trim();
+		var inputpw1 = pw1.value.trim();
+		
+		//inputpw에 입력된 내용이 없으면 메시지를 출력하고 전송하지 않음
+		if(inputpw.length <= 0){
+			document.getElementById("pwspan").innerHTML = 'pw는 필수 입력입니다.';
+			document.getElementById("pwspan").style.color = 'red';
+			ids.focus();
+			e.preventDefault();
+		}
+		
+		var flag = false;
+		
+		//inputpw 중간에 공백이 있으면 메시지 출력하고 전송하지 않음
+		if(idx=0; idx < inputpw.length; idx=idx+1){
+			var ch = inputpw.charCodeAt(idx);
+			if(ch == 32){
+				document.getElementById("pwspan").innerHTML =
+					'비밀번호에는 공백을 포함할 수 없습니다.';
+				flag = true;
+				break;
+			}
+		}
+		if(flag == true){
+			e.preventDefault();
+			return;
+		}
+		
+		
+		//inputpw와 inputpw1의 값이 동일하지 않으면
+		//메시지를 출력하고 포커스를 이동시키고 서버에게 전송하지 않음
+		if(!(inputpw === inputpw1)){
+			document.getElementById("pwspan").innerHTML = 
+				'비밀번호와 비밀번호 확인은 동일해야합니다.';
+			pw.focus();
+			e.preventDefault();
+		}
+		
+	});
+</script>
+</html>

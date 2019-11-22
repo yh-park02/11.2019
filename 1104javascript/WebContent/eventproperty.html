@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이벤트 객체의 속성</title>
+</head>
+<body>
+	<!-- 누르면 무엇인가 동작을 한다는 표시를 위해 
+	클릭 이벤트를 사용할 때 a태그로 감싸서 작성한다. -->
+	<a href='#'><img src="./images/축구공1.jpeg" 
+	width='100' height='100' id='ss'/></a>
+</body>
+<script>
+	document.getElementById('ss')
+	.addEventListener('click', function(e){
+		//event 객체 만들기 
+		//다른 라이브러리를 이용하지 않고 자바스크립트 만으로 
+		//코딩을 하다보면 아래와 같은 구문이 많이 나온다.
+		//이유는 브라우저 호환성 문제 때문이다. 
+		var event = e || window.event;
+		//객체의 모든 속성과 값을 출력 
+		for(attr in event){
+			document.writeln(attr + ":" + 
+					event[attr]+"<br/>");
+		}
+	});
+</script>
+</html>

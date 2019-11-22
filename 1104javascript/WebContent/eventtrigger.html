@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인 구현 - 이벤트 트리거 사용</title>
+<style>
+	/* 로그인에 밑줄 없애기 */
+	a{
+		text-decoration:none;
+	}
+	/* 로그인 글자색 설정 */
+	a:visited{
+		text-decoration:none;
+		color:red;
+	}
+	/* 로그인 클릭했을 때 배경색 주기 */
+	a:active{
+		text-decoration:none;
+		background-color:papayawhip;
+	}
+</style>
+</head>
+<body>
+
+	<form action='login.do' method='post' id="loginform">
+		<input type="text" id="id" name="id"
+		placeholder="아이디를 입력하세요"/><br/>
+		<input type="password" id="pw" name="pw"
+		placeholder="비밀번호를 입력하세요"/><br/>
+		<input type="submit" value="로그인"/>
+ 		<a href='#'><img src="./images/login.png"
+		id='loginimg' width='300' height='60' /></a>
+		<a href='#'><span id ="logintext">로그인</span></a>
+	</form>
+
+	<h1 id="outer">제목<p id="inner">자식 태그</p>태그</h1>
+	
+</body>
+<script>
+	document.getElementById('outer')
+	.addEventListener('click', function(e){
+		alert('부모 태그의 클릭 이벤트')
+	});
+	
+	document.getElementById('inner')
+	.addEventListener('click', function(e){
+		alert('자식 태그의 클릭 이벤트')
+		//이 코드가 없으면 위에 내용을 처리하고 부모에게 이벤트를 전파한다.
+		//이벤트 객체 찾아오기
+		var event = e || window.event;
+		//IE 하위 브라우저를 위한 설정
+		event.cancelBubble = true;
+		//그 이외의 브라우저 설정
+		//event.stopPropagation 속성이 존재한다면 
+		if(event.stopPropagation){
+			event.stopPropagation();
+		}
+	});
+
+
+	//이미지를 클릭하면 폼에 submit 이벤트를 강제로 발생시킴 - 이벤트 트리거
+	document.getElementById('loginimg')
+	.addEventListener('click', function(e){
+		document.getElementById('loginform').submit();
+	});
+	
+	
+	//텍스트를 클릭하면 폼에 submit 이벤트를 강제로 발생시킴
+	document.getElementById('logintext')
+	.addEventListener('click', function(e){
+		document.getElementById('loginform').submit();
+	});
+
+</script>
+</html>
