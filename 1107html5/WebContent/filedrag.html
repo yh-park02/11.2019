@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파일 드래그 앤 드랍</title>
+<style>
+	#dropbox{
+		float:left;
+		width:500px;
+		height:300px;
+		margin:10px;
+		border:1px solid #999999;
+	}
+</style>
+</head>
+<body>
+
+</body>
+	<section id='dropbox'>
+	이곳에 파일을 떨어뜨리세요! :)
+	</section>
+	
+<script>
+	var dropbox = document.getElementById('dropbox');
+	
+	dropbox.addEventListener('dragenter', function(e){
+		var event = e || window.event;
+		event.preventDefault();
+	});
+	dropbox.addEventListener('dragover', function(e){
+		var event = e || window.event;
+		event.preventDefault();
+	});
+	dropbox.addEventListener('drop', function(e){
+		var event = e || window.event;
+		//드래그 한 파일 정보 가져오기 
+		var files = event.dataTransfer.files;
+		var disp = '';
+		for(idx = 0;  idx < files.length; idx=idx+1){
+			disp = disp + files[idx].name + ':' +
+			files[idx].size + '<br/>';
+		}
+		dropbox.innerHTML = disp;
+	});
+</script>
+</html>

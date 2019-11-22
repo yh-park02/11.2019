@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>웹 스토리지 - 브라우저 저장소</title>
+</head>
+<body>
+	<fieldset>
+		<legend>스토리지 작업</legend>
+		키<input type='text' id='k'/>
+		값<input type='text' id='v'/>
+		<input type='button' id='addbtn' value='삽입'/>
+		<input type='button' id='delbtn' value='삭제'/>
+	</fieldset>
+	
+	<fieldset>
+		<legend>스토리지 내용 출력</legend>
+		<select id='list' size='10'></select>
+	</fieldset>
+</body>
+<script>
+	var k = document.getElementById('k');
+	var v = document.getElementById('v');
+	var addbtn = document.getElementById('addbtn');
+	var delbtn = document.getElementById('delbtn');
+	
+	var list = document.getElementById('list');
+	
+	//list에서 선택을 변경하면 input에 출력 
+	list.addEventListener('change', function(e){
+		//선택한 값을 찾아와서 k에 출력
+		var selectedValue = 
+			list.options[list.selectedIndex];
+		k.value = selectedValue.value;
+		v.value = localStorage[selectedValue.value];	
+	});
+	delbtn.addEventListener('click', function(e){
+		delete localStorage[k.value];	
+		k.value = '';
+		v.value = '';
+		alert('삭제되었습니다.');
+		display();
+	});
+	//스토리지의 내용을 읽어서 list에 출력해주는 메소드 
+	var display = function(){
+		//list의 내용 삭제
+		list.innerHTML = '';
+		//스토리지 순회 
+		for(idx=0; idx<sessionStorage.length; idx=idx+1){
+			//스토리지의 key 가져오기 
+			var t = sessionStorage.key(idx);
+			//select의 마지막에 데이터 추가 
+			//new Option의 첫번째 매개변수는 보여지는 텍스트이고 
+			//두번째 매개변수는 저장될 때의 value
+			list.options[list.options.length] =
+				new Option(t+':'+sessionStorage[t], t)
+		}
+	};
+	
+	addbtn.addEventListener('click', function(e){
+		//입력한 값을 가져오기
+		var kvalue = k.value;
+		var vvalue = v.value;
+		//입력한 값이 좌우 공백을 제거하고 1글자 이상이면 
+		if(kvalue.trim().length >= 1 &&
+				vvalue.trim().length >= 1){
+			//세션 스토리지에 저장
+			sessionStorage[kvalue] = vvalue;
+			k.value = '';
+			v.value = '';
+			//저장된 내용을 list에 출력하는 함수를 호출
+			display();
+		}
+		
+	});
+	
+	display();
+	
+</script>
+</html>

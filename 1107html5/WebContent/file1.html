@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>파일 정보 출력</title>
+</head>
+<body>
+	<!-- accept 속성에 여러 개서 설정 가능 - ,로 구분
+		audio/* video/* image/* 을 설정하면 
+		사운드 또는 비디오 또는 이미지만 선택하도록 할 수 있습니다. -->
+
+	첨부파일<input type='file' multiple='multiple'
+	accept='.rtf' id='doc'/>
+	<br/>선택한 파일<div id='disp'></div>
+
+	<h2>이미지 미리보기</h2>
+	<img width="200" height="200" id="imginp" />
+	<input type='file' accept='image/*' id='imgfile'/>
+
+</body>
+
+<script>
+	//file 객체 찾아오기
+	var doc = document.getElementById('doc');
+	//파일 내용 출력 영역
+	var disp = document.getElementById('disp');
+
+	//file의 선택이 변경되었다면
+	doc.addEventListener('change', function(e){
+		//선택한 파일 정보 가져오기
+		var selectFiles = doc.files;
+		//출력 내용을 저장할 변수 생성
+		var output = '';
+		//파일의 이름과 크기를 output에 추가
+		for(idx=0; idx < selectFiles.length; idx=idx+1){
+			var f = selectFiles[idx];
+			output = output + '<p>' + f.name + ':' + 
+			f.size + '</p>';
+		}
+		//내용 출력
+		disp.innerHTML = output;
+
+	});
+	//img 영역과 file 객체 찾아오기
+	var imginp = document.getElementById('imginp');
+	var imgfile = document.getElementById('imgfile');
+
+	//file 선택이 변경될 때
+	imgfile.addEventListener('change', function(e){
+		//파일의 내용 읽기 객체 생성
+		var reader = new FileReader();
+		//읽을 파일 설정
+		reader.readAsDataURL(imgfile.files[0]);
+		//파일을 읽는 것은 비동기적으로 동작 - 콜백 등록
+		reader.addEventListener('load', function(e){
+			var event = e || window.event;
+			//img 태그에 내용을 출력
+			imginp.src = event.target.result;
+		});
+	});
+
+</script>
+</html>

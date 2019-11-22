@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>이미지 드래그 앤 드랍</title>
+<style>
+	#dropbox{
+		float:left;
+		width:500px;
+		height:300px;
+		margin:10px;
+		border:1px solid #999999;
+	}
+	#picturebox{
+		float:left;
+		width:200px;
+		margin:10px;
+		border:1px solid #999999;
+	}
+	#picture{
+		float:left;
+		padding:5px;
+	}
+</style>
+<script>
+	window.addEventListener('load', function(e){
+		
+	});
+</script>
+</head>
+<body>
+	<section id='dropbox'>
+		여기에 이미지를 떨어뜨리세요! :)
+	</section>
+	<section id='picturebox'>
+		<img id='picture' width='100' height='100'
+		src = 'resources/축구공1.jpeg'/>
+	</section>
+</body>
+<script>
+//드래그할 이미지
+var picture = document.getElementById("picture");
+//이미지를 드래그 할 때 다른 곳에 추가할 수 있는 
+//코드를 데이터로 가지고 갑니다.
+picture.addEventListener("dragstart",function(e){
+	var event = e || window.event;
+	//현재 이미지를 추가할 수 있는 코드 
+	var code = '<img width = 100 height = 100 src = "' + picture.getAttribute('src')+'"/>';
+	event.dataTransfer.setData("Text",code);
+});
+//드랍할 영역
+var drop = document.getElementById("dropbox");
+//drop이벤트가 발생했을 때
+drop.addEventListener("drop",function(e){
+	var event = e || window.event;
+	//기본 이벤트 제거
+	event.preventDefault();
+	//전송된 데이터를 출력
+	drop.innerHTML += event.dataTransfer.getData("Text");
+});
+
+//드래그 앤 드랍을 사용할 때는 받는 쪽의 dragenter와
+//dragover를 실행되지 않도록 해주어야 합니다.
+drop.addEventListener("dragenter",function(e){
+	var event = e || window.event;
+	event.preventDefault();
+	});
+drop.addEventListener("dragover",function(e){
+	var event = e || window.event;
+	event.preventDefault();
+
+	});
+</script>
+</html>
