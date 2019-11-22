@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>캔버스</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500">
+	</canvas>
+</body>
+<script>
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	//겹쳐지는 영역에 대한 설정
+	context.globalCompositeOperation = 'lighter';
+	
+	context.fillStyle = 'red';
+	context.fillRect(0,0,100,100);
+	
+	context.fillStyle = 'rgba(255, 255, 0, 1)';
+	context.fillRect(50,50,100,100);
+	
+	//test
+	context.globalCompositeOperation = 'destination-atop';
+	context.fillStyle = "#990000";
+	context.fillRect(100,250,300,100);
+	
+	context.fillStyle = "#AAAAFF";
+	context.font = 'bold 80px verdana, sans-serif'
+	context.fillText("TEST", 140, 280);
+</script>
+</html>

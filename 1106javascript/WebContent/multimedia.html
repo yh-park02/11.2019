@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>멀티미디어 사용</title>
+<style>
+	bodt{
+		text-align:center;
+	}
+	/* HTML5를 지원하지 않는 브라우저에서 semantic 태그를 
+	block 태그로 설정해서 div 형태로 출력하도록 설정 */
+	header,section,footer,aside,article,figure,figcaption{
+		display:block;
+	}	
+	
+	#player{
+		width:720px;
+		margin: 20px auto;
+		padding: 5px;
+		background: #999999;
+		border: 1px solid #666666;
+		
+		/* vendor prefix : 표준이 완벽하게 정의되지 않은
+		css3를 사용할 때 브라우저에서 제공하는 기능을 사용 */
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+	}
+	
+	nav{
+		/* marjin은 4개의 값을 설정
+		하나의 값만 설정하면 상하좌우 모두 동일하게 적용
+		2개의 값만 적용하면 좌우와 상하에 적용한다. */
+		marjin: 5px 0px;
+	}
+	
+	/* 	float는 블록 영역 좌우에 다른 콘텐츠를 
+		배치하기 위해서 화면에 떠 있도록 만드는 속성  */
+	#buttons{
+		float:left;
+		width:85px;
+		height:20px;
+	}
+	
+	/*  position은 배치방법으로 relative는 상대적인 위치로 배치
+		absolute는 절대적인 위치로 배치한다. */
+	#bar{
+		position:relative;
+		float:left;
+		width:600px;
+		height:16px;
+		padding:2px;
+		border:1px solid #CCCCCC;
+		bacground:#EEEEEE;
+	}
+	#progress{
+		position:absolute;
+		width:0px;
+		height:16px;
+		background:rgba(0,0,150,0.2);
+	}
+</style>
+<script>
+	//JavaScript와 HTML은 순서대로 읽어 가면서 실행하기 때문에 
+	//이 영역에서 하단에 있는 body 태그의 내용은 사용할 수 없다.
+	
+	//body 태그에 있는 모든 내용이 메모리에 적재 된 후 수행
+	window.addEventListener("load", function(){
+		//함수 내에서 변수를 만들 때 var를 붙이면 지역변수가 되고 
+		//var를 붙이지 않으면 전역변수가 된다. 
+		maxim = 600;
+		mmedia = document.getElementById("media");
+		play = document.getElementById("play");
+		bar = document.getElementById("bar");
+		bar.addEventListener('click', function(e){
+			//재생중인 경우에만 동작
+			if(!mmedia.paused && !mmedia.ended){
+				//var event = e || window.event;
+				//마우스로 클릭한 위치를 찾기
+				var x = e.pageX - bar.offsetLeft;
+				//재생 위치 계산
+				var newtime = x * mmedia.duration / 600;
+				//재생 위치를 옮기고 진행율 바도 크기 변경
+				media.currentTime = newtime;
+				progress.style.width = x + 'px';
+			}
+		});
+		progress = document.getElementById("progress");
+		
+		//재생중이면 중지를 시키고 중지가 되었거나 종료되었으면
+		//다시 재생하도록 버튼의 클릭 이벤트를 생성
+		play.addEventListener('click', function(e){
+			//동영상이 중지나 종료된 것이 아니면
+			if(!mmedia.paused && !mmedia.ended){
+				mmedia.pause();
+				play.innerHTML = "Play";
+				//타이머 종료
+				clearInterval(loop);
+			}else{
+				//동영상 재생
+				mmedia.play();
+				//버튼의 글자 변경
+				play.innerHTML="Pause";
+				//타이머를 생성해서 재생 시간을 출력 
+				loop = setInterval(function(){
+					//비디오가 중지되지 않았다면
+					if(!mmedia.ended){
+						//현재 재생 중인 비디오의 위치 비율에 600을 곱한 값을
+						//pregress의 너비로 설정
+						size = 
+							parseInt(
+							mmedia.currentTime*600/mmedia.duration);
+						progress.style.width = size + 'px';
+					}else{
+						//progress를 초기화
+						progress.style.width = '0px';
+						play.innerHTML = 'Play';
+						clearInterval(loop);
+					}
+				}, 500);
+			}
+		});
+	});
+</script>
+
+</head>
+<body>
+	<video src='assets/Painting.mp4'
+	width="300" height="300" 
+	poster='./images/pp.png'
+	controls="controls"></video>
+
+	<!-- 간단한 비디오 재생기 만들기 -->
+	<section id="player">
+		<video id="media" width="720" height="400">
+			<!-- 2개를 설정하면 첫번째 것을 재생하지 못하는 경우
+				두번째 동영상을 재생한다. -->
+			<source src="./assets/Painting.mp4">
+			<source src="./assets/Iphone#G.mov">
+		</video>
+		
+		<nav>
+			<!-- 재생버튼영역 -->
+			<div id="buttons">
+				<button type="button" id="play">play</button>
+			</div>
+			<!-- 재생 진행율을 표시하기 위한 영역 -->
+			<div id="bar">
+				<div id="progress"></div>
+			</div>
+			<!-- div css를 초기화 -->
+			<div style="clear:both"></div>
+		</nav>
+	</section>
+	
+</body>
+</html>

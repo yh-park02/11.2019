@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>오디오 play</title>
+</head>
+<body>
+	<button type='button' id="audioplay">오디오재생</button>
+</body>
+<script>
+	var audio = new Audio('./assets/song.mp3');
+	
+	document.getElementId('audioplay')
+	.addEventListener('click', function(e){
+		audio.play();
+	});
+</script>
+</html>

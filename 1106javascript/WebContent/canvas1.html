@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>캔버스 활용</title>
+<Script>
+	window.addEventListener('load', function(e){
+		//그림을 그릴 캔버스 찾아오기 
+		var canvas = document.getElementById('canvas');
+		//그림을 그리기 위한 Context 객체를 생성 
+		var context = canvas.getContext('2d');
+		//그림 그리기
+		context.fillRect(0,0,100,300);
+		context.fillText('문자열',400,400)
+	});
+</Script>
+
+</head>
+<body>
+<canvas id="canvas" width="500" height="500">
+	캔버스가 지원되지 않는 브라우저에서 보여지는 문자열
+</canvas>
+</body>
+<script>
+
+</script>
+</html>

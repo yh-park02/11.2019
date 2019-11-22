@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>캔버스를 이용한 애니메이션</title>
+</head>
+<body>
+	<canvas id="canvas" width="500" height="500">
+	</canvas>
+</body>
+<script>
+	var canvas = document.getElementById('canvas');
+	context = canvas.getContext('2d');
+	
+	window.addEventListener("mousemove", function(e){
+		//이벤트 객체 생성
+		var event = e || window.event;
+		//영역을 클리어 
+		context.clearRect(0,0,500,300)
+		//마우스의ㅐ 좌표 가져오기 
+		var xmouse = event.clientX;
+		var ymouse = event.clienty;
+		//타원을 그리기 위한 중점 
+		var xcenter = 220;
+		var ycenter = 150;
+		var ang = Math.atan2(xmouse-xcenter, ymouse-ycenter);
+		var x = xcenter+Math.round(Math.sin(ang)*10);
+		var y = ycenter+Math.round(Math.cos(ang)*10);
+		//그림 그리기 - 외부의 눈 그리기
+		context.beginPath();
+		context.arc(xcenter, ycenter, 20, 0, Math.PI*2, false);
+		context.moveTo(xcenter+70, 150);
+		context.arc(xcenter+50, ycenter, 20, 0, Math.PI*2, false);
+		context.stroke();
+		
+		//그림 그리기 - 마우스에 따라 움직이는 눈동자
+		context.beginPath();
+		context.moveTo(x+10,y);
+		context.arc(x,y,10,0,Math.PI*2, false);
+		context.moveTo(x+60,y);
+		context.arc(x+50,y,10,0,Math.PI*2, false);
+		context.fill();
+	});
+</script>
+</html>

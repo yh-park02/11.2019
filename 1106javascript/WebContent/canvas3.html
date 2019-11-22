@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>캔버스</title>
+</head>
+<body>
+	<canvas id="canvas" width="400" height="400">
+	</canvas>
+</body>
+
+<script>
+	var canvas = document.getElementById('canvas');
+	var context = canvas.getContext('2d');
+	//메모리에 그림을 그리기 시작
+	context.beginPath();
+	context.arc(200,200,150,0,Math.PI*2, false);
+	//실제 그림을 그려달라고 요청
+	//clip은 출력 영역을 설정
+	//context.clip();
+	
+	
+	//이미지 출력
+	var image = new Image();
+	image.src = "./images/img.jpg";
+	image.addEventListener('load', function(e){
+		context.drawImage(image, 0, 0, 400, 400);
+		//선두께 조정
+		context.lineWidth = 10;
+		//선 색 조정
+		context.strokeStyle="rgba(255, 255, 0, 0.5)"
+		//그림자 설정
+		//context.shadowColor="rgba(0, 0, 255, 0.5)"
+		//context.shadowBlur=15;
+		//context.shadowOffsetX= 10
+		//context.shadowOffsetY= 10
+		context.stroke();
+		
+		//텍스트
+		context.strokeStyle="rgba(150, 100, 100, 1)"
+		context.font = 'bold 50px verdana, sans-serif';
+		context.strokeText('H I', 150, 120);
+	});
+</script>
+</html>
